@@ -1,6 +1,5 @@
 package BucketUtil;
 
-import Algorithms.BucketBacktracking;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -70,7 +69,7 @@ public class BucketState {
     }
 
     /**
-     * Moving the water between the buckets means that we do repetitive substractions,
+     * Moving the water between buckets means that we do repetitive subtractions,
      * equivalent to the greatest common divisor (obtained through the same method).
      */
     public boolean isViable() {
@@ -111,13 +110,5 @@ public class BucketState {
         }
 
         System.out.println("\n\\\\\\\\\\\\\\\\\\\\\\\\\\\\\n");
-    }
-
-    public static void main(String[] args) {
-        BucketState bucketState = new BucketState();
-        bucketState.initializeState(7, 10, 5);
-
-        BucketBacktracking bucketBacktracking = new BucketBacktracking();
-        bucketBacktracking.initBKT(bucketState);
     }
 }

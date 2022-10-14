@@ -29,4 +29,12 @@ public class BucketBacktracking {
             runBKT(bucketState.getNextBucketState(transition));
         }
     }
+
+    public static void main(String[] args) {
+        BucketState bucketState = new BucketState();
+        bucketState.initializeState(7, 10, 5);
+
+        BucketBacktracking bucketBacktracking = new BucketBacktracking();
+        bucketBacktracking.initBKT(bucketState);
+    }
 }
