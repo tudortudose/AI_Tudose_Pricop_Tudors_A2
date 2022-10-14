@@ -36,13 +36,13 @@ public class AStar {
             statesFunction.put(bucketState, computeHeuristic(bucketState));
             bucketStateQueue.add(new StateFunctionPair(bucketState, computeHeuristic(bucketState)));
 
-            runAStar(bucketState);
+            runAStar();
         } else {
             System.out.println("There is no solution available!");
         }
     }
 
-    public void runAStar(BucketState bucketState) {
+    public void runAStar() {
         while (!bucketStateQueue.isEmpty()) {
             BucketState currentState = bucketStateQueue.poll().getBucketState();
 
@@ -68,7 +68,7 @@ public class AStar {
                             statesDistance.get(neighbourState) + heuristicToNeighbour);
 
                     StateFunctionPair nextStateFunctionPair =
-                            new StateFunctionPair(neighbourState, heuristicToNeighbour);
+                            new StateFunctionPair(neighbourState, statesFunction.get(neighbourState));
 
                     if (!bucketStateQueue.contains(nextStateFunctionPair)) {
                         bucketStateQueue.add(nextStateFunctionPair);
