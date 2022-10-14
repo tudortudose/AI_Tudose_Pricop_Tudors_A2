@@ -4,14 +4,16 @@ import BucketUtil.BucketState;
 import BucketUtil.Transitions;
 import lombok.Getter;
 
-import javax.swing.plaf.nimbus.State;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.PriorityQueue;
+import java.util.Queue;
 
 public class AStar {
     @Getter
-    private class StateFunctionPair implements Comparable<StateFunctionPair> {
-        private BucketState bucketState;
-        private int stateFunction;
+    private static class StateFunctionPair implements Comparable<StateFunctionPair> {
+        private final BucketState bucketState;
+        private final int stateFunction;
 
         public StateFunctionPair(BucketState bucketState, Integer stateFunction) {
             this.bucketState = bucketState;
@@ -32,6 +34,7 @@ public class AStar {
         if (bucketState.isViable()) {
             statesDistance.put(bucketState, 0);
             statesFunction.put(bucketState, computeHeuristic(bucketState));
+            bucketStateQueue.add(new StateFunctionPair(bucketState, computeHeuristic(bucketState)));
 
             runAStar(bucketState);
         } else {
@@ -73,14 +76,23 @@ public class AStar {
                 }
             }
         }
+        System.out.println("Done cyka");
     }
 
     private int computeHeuristic(BucketState bucketState) {
-        return 1;
+        return Math.min(Math.abs(bucketState.getFirstBucketCurrent() - bucketState.getDesiredQuantity()),
+                Math.abs(bucketState.getSecondBucketCurrent() - bucketState.getDesiredQuantity()));
     }
 
     private int computeDistanceStates(BucketState currentState, BucketState nextState) {
         return 1;
     }
 
+    public static void main(String[] args) {
+        BucketState bucketState = new BucketState();
+        bucketState.initializeState(7, 10, 5);
+
+        AStar aStar = new AStar();
+        aStar.initAStar(bucketState);
+    }
 }
