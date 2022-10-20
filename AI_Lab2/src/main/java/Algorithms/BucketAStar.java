@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
-public class AStar {
+public class BucketAStar {
     @Getter
     private static class StateFunctionPair implements Comparable<StateFunctionPair> {
         private final BucketState bucketState;
@@ -38,7 +38,7 @@ public class AStar {
 
             runAStar();
         } else {
-            System.out.println("There is no solution available!");
+            System.out.println("There is no solution available!\n");
         }
     }
 
@@ -92,7 +92,7 @@ public class AStar {
         BucketState bucketState = new BucketState();
         bucketState.initializeState(7, 10, 5);
 
-        AStar aStar = new AStar();
-        aStar.initAStar(bucketState);
+        BucketAStar bucketAStar = new BucketAStar();
+        bucketAStar.initAStar(bucketState);
     }
 }

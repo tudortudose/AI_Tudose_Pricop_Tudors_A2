@@ -13,7 +13,7 @@ public class BucketBacktracking {
         if (bucketState.isViable()) {
             runBKT(bucketState);
         } else {
-            System.out.println("There is no solution available!");
+            System.out.println("There is no solution available!\n");
         }
     }
 

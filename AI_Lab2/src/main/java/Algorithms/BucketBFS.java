@@ -16,7 +16,7 @@ public class BucketBFS {
         if (bucketState.isViable()) {
             runBFS(bucketState);
         } else {
-            System.out.println("There is no solution available!");
+            System.out.println("There is no solution available!\n");
         }
     }
 

@@ -73,7 +73,7 @@ public class BucketState {
      * equivalent to the greatest common divisor (obtained through the same method).
      */
     public boolean isViable() {
-        if (desiredQuantity > firstBucketQuantity || desiredQuantity > secondBucketQuantity) {
+        if (desiredQuantity > Math.max(firstBucketQuantity, secondBucketQuantity)) {
             return false;
         }
         return desiredQuantity % gcd(firstBucketQuantity, secondBucketQuantity) == 0;
@@ -97,7 +97,7 @@ public class BucketState {
 
     public void printSolution() {
         BucketState finalBucketState = this;
-        System.out.println("All possible solutions: ");
+        System.out.println("Solution: ");
 
         List<BucketState> bucketStates = new ArrayList<>();
         while (finalBucketState != null) {
