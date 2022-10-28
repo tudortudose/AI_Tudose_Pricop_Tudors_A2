@@ -169,12 +169,13 @@ public class QueensAlgorithm {
         queensAlgorithm.initQueensDomains();
         queensAlgorithm.printMatrix();
         queensAlgorithm.printDomains();
-        
+
         List<Integer> allPositions = new ArrayList<>();
         for (int i = 0; i < queensAlgorithm.getQueensNumber(); ++i) {
             allPositions.add(i);
         }
-        for (Integer startPosition : queensAlgorithm.getQueenDomainMRV(allPositions, queensAlgorithm.getQueensDomains())) {
+        for (Integer startPosition :
+                queensAlgorithm.getQueenDomainMRV(allPositions, queensAlgorithm.getQueensDomains())) {
             queensAlgorithm.findQueensBKT(
                     queensAlgorithm.getQueensPositions(), startPosition, queensAlgorithm.getQueensDomains());
         }
