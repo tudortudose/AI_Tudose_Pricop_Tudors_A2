@@ -67,6 +67,24 @@ input_data, lables_dict = read_data('iris.data')
 train_set, test_set = split_input_data(input_data)
 print_set(train_set)
 network = Network(*init_layer_counts(input_data))
-network.train(train_set, 0.05, 25)
-actual, predicted = network.test(test_set)
+network.train(train_set, 0.01, 5)
+(actual, predicted), results = network.test(test_set)
 print_confusion_matrix(actual, predicted, lables_dict)
+
+print(results)
+
+fig, ax = plt.subplots(figsize=(12,5))
+ax.set_title('Irises Classification')
+ax.set_xlabel('Sepal length')
+
+for key in results:
+  if results[key] == 1:
+    ax.plot(key[0], key[1], color='green', marker='x')
+  elif results[key] == 0:
+    ax.plot(key[0], key[1], color='red', marker='x')
+
+ax.set_ylabel('Sepal width')
+ax.yaxis.grid(color='lightgray', linestyle='dashed')
+ax.xaxis.grid(color='lightgray', linestyle='dashed')
+plt.tight_layout()
+plt.show()

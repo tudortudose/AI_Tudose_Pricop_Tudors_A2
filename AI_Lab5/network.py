@@ -17,6 +17,7 @@ class Network():
     correct_count = 0
     actual = []
     predicted = []
+    input_results = {}
     for i in range(size):
       input_layer = data_set[0][i]
       input_target = data_set[1][i]
@@ -34,12 +35,14 @@ class Network():
       output_layer_preactivation = self.output_layer_biases + self.output_layer_wheights @ hidden_layer_activation
       output_layer_activation = 1 / (1 + np.exp(-output_layer_preactivation))
 
-      correct_count += int(np.argmax(output_layer_activation) == np.argmax(binary_target))
+      isCorrect = int(np.argmax(output_layer_activation) == np.argmax(binary_target))
+      correct_count += isCorrect
+      input_results[(input_layer[0][0], input_layer[1][0])] = isCorrect
       actual += [np.argmax(output_layer_activation)]
       predicted += [np.argmax(binary_target)]
 
     print(f"Test Accuracy: {round((correct_count / size) * 100, 2)}%")
-    return (np.array(actual), np.array(predicted))
+    return (np.array(actual), np.array(predicted)), input_results
 
   def train(self, data_set, learning_rate, epochs_count):
     size = len(data_set[0])
