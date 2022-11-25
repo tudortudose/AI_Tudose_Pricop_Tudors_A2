@@ -1,7 +1,8 @@
 from random import shuffle
 from network import Network
 import numpy as np
-
+from sklearn import metrics
+import matplotlib.pyplot as plt
 
 def read_data(filename):
     with open(filename, 'r') as fd:
@@ -22,7 +23,11 @@ def read_data(filename):
           lable_value = labels_dict.setdefault(label_key, len(labels_dict))
           data_labels += [lable_value]
         
-    return (np.array(data_input), np.array(data_labels))
+        inverted_dict = {}
+        for key, value in labels_dict.items():
+          inverted_dict[value] = key
+        
+    return ((np.array(data_input), np.array(data_labels)), inverted_dict)
 
 
 def split_input_data(input_data):
@@ -47,9 +52,21 @@ def print_set(data):
     print (data[0][i], data[1][i])
 
 
-input_data = read_data('iris.data')
+def print_confusion_matrix(actual, predicted, lables_dict):
+  actual = list(map(lambda x: lables_dict[x], actual))
+  predicted = list(map(lambda x: lables_dict[x], predicted))
+
+  confusion_matrix = metrics.confusion_matrix(actual, predicted)
+  cm_display = metrics.ConfusionMatrixDisplay(confusion_matrix = confusion_matrix, display_labels = lables_dict.values())
+
+  cm_display.plot()
+  plt.show()
+
+
+input_data, lables_dict = read_data('iris.data')
 train_set, test_set = split_input_data(input_data)
 print_set(train_set)
 network = Network(*init_layer_counts(input_data))
-network.train(train_set, 0.01, 100)
-network.test(test_set)
+network.train(train_set, 0.05, 25)
+actual, predicted = network.test(test_set)
+print_confusion_matrix(actual, predicted, lables_dict)

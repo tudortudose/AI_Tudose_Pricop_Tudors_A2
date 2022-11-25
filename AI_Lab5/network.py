@@ -15,6 +15,8 @@ class Network():
   def test(self, data_set):
     size = len(data_set[0])
     correct_count = 0
+    actual = []
+    predicted = []
     for i in range(size):
       input_layer = data_set[0][i]
       input_target = data_set[1][i]
@@ -33,9 +35,11 @@ class Network():
       output_layer_activation = 1 / (1 + np.exp(-output_layer_preactivation))
 
       correct_count += int(np.argmax(output_layer_activation) == np.argmax(binary_target))
+      actual += [np.argmax(output_layer_activation)]
+      predicted += [np.argmax(binary_target)]
 
     print(f"Test Accuracy: {round((correct_count / size) * 100, 2)}%")
-
+    return (np.array(actual), np.array(predicted))
 
   def train(self, data_set, learning_rate, epochs_count):
     size = len(data_set[0])
@@ -69,5 +73,5 @@ class Network():
         self.hidden_layer_wheights += -learning_rate * hidden_layer_delta @ np.transpose(input_layer)
         self.hidden_layer_biases += -learning_rate * hidden_layer_delta
 
-      print(f"Training Accuracy: {round((correct_count / size) * 100, 2)}%")
+      print(f"Training Accuracy (epoch {epoch}): {round((correct_count / size) * 100, 2)}%")
       correct_count = 0
