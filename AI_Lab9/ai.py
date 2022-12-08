@@ -71,12 +71,11 @@ def get_next_state(current_state, q_table, next_states):
     max_action = None
     for action in ACTIONS:
         if (current_state, action) in q_table:
-            if (current_state, action) in q_table:
-                val = q_table[(current_state, action)]
-                if val > max_val:
-                    max_val = val
-                    max_state = next_states[(current_state, action)]
-                    max_action = action
+            val = q_table[(current_state, action)]
+            if val > max_val:
+                max_val = val
+                max_state = next_states[(current_state, action)]
+                max_action = action
     return max_action, max_state
 
 
